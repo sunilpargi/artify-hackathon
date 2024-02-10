@@ -43,7 +43,15 @@ document.querySelector('.search-input').addEventListener('keypress', async (even
   }
 });
 
-
+// Update the event listener for the "Show More" button
+document.getElementById('load-more-btn').addEventListener('click', async () => {
+    try {
+      currentPage++;
+      await updateImages();
+    } catch (error) {
+      console.error('Error loading more images:', error);
+    }
+  });
 
 
 // Function to clear existing images
@@ -81,7 +89,7 @@ async function updateImages() {
       const newImagesData = await fetchData(searchQuery, currentPage);
       // Append new images to the existing ones
       imagesData = [...imagesData, ...newImagesData];
-      clearImages(); // Clear existing images
+    //  clearImages(); // Clear existing images
      
   
       // Update UI with fetched data
