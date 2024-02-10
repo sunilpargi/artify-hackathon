@@ -17,6 +17,9 @@ body {
 .jumbutron {
   background-color: #f0f0f0;
   padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .title {
@@ -71,12 +74,45 @@ body {
   gap: 20px;
 }
 
+/* Add image hover effect */
 .image {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 10px;
+  position: relative;
+  overflow: hidden;
 }
 
+.image:hover img {
+  transform: scale(1.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.image:hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.image:hover::after {
+  content: 'View Details';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 18px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.image:hover::before,
+.image:hover::after {
+  opacity: 1;
+}
 .image img {
   width: 100%;
   border-radius: 4px;
@@ -85,6 +121,32 @@ body {
 .image p {
   margin-top: 10px;
   text-align: center;
+}
+
+.buttons {
+  display: flex;
+}
+
+.category-btn {
+  margin-left: 10px; 
+}
+
+
+
+/* Update button styles */
+.btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #45a049;
 }
 
 
