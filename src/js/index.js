@@ -4,12 +4,12 @@
 
 const apiStatus = document.querySelector('#api-status');
 
-if (import.meta.env.DEV) {
-  import('../api/browser')
-    .then(({ worker }) => worker.start())
-    .then(() => fetch('/'))
-    .then((res) => res.json())
-    .then((res) => (apiStatus.innerText = res.message));
-}
+// if (import.meta.env.DEV) {
+//   import('../api/browser')
+//     .then(({ worker }) => worker.start())
+//     .then(() => fetch('/'))
+//     .then((res) => res.json())
+//     .then((res) => (apiStatus.innerText = res.message));
+// }
 
 
