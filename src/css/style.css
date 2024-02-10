@@ -86,7 +86,7 @@ body {
 }
 
 .image:hover::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -98,7 +98,7 @@ body {
 }
 
 .image:hover::after {
-  content: 'View Details';
+  content: "View Details";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -128,14 +128,12 @@ body {
 }
 
 .category-btn {
-  margin-left: 10px; 
+  margin-left: 10px;
 }
-
-
 
 /* Update button styles */
 .btn {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -149,9 +147,8 @@ body {
   background-color: #45a049;
 }
 
-
 #load-more-btn {
-/* display: none; */
+  /* display: none; */
   padding: 10px 20px;
   background-color: #007bff;
   color: #fff;
@@ -162,4 +159,11 @@ body {
 
 #load-more-btn:hover {
   background-color: #0056b3;
+}
+.buttons {
+  display: flex;
+}
+
+.category-btn {
+  margin-left: 10px;
 }
