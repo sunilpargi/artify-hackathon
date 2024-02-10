@@ -1,15 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Your JavaScript Playground</title>
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
-    <div id="main">
-     <h1>Hello</h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your JavaScript Playground</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="root">
+    <div class="jumbutron">
+      <div class="container">
+        <h1 class="title">Find Images</h1>
+        <div class="search-container">
+          <input type="text" class="search-input" placeholder="Search...">
+          <button class="search-btn">Search</button>
+        </div>
+      </div>
     </div>
-    <script type="module" src="js/index.js"></script>
-  </body>
+    <div class="images">
+      <div class="container">
+        <h2 class="subtitle">Results for Cats</h2>
+        <div class="grid">
+          <!-- Images will be rendered here -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script type="module" src="js/index.js"></script>
+</body>
 </html>
