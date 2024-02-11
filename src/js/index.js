@@ -42,6 +42,7 @@ window.addEventListener("load", async () => {
     imagesData = randomImagesData;
     updateSubtitle("Random Images"); 
     renderImages(); 
+    attachImageHoverListeners(imagesData);
   } catch (error) {
     console.error("Error loading random images:", error);
   }
@@ -168,6 +169,7 @@ async function updateImages() {
 
     // Update UI with fetched data
     renderImages();
+    attachImageHoverListeners(imagesData);
     attachImageClickListeners(imagesData);
   } catch (error) {
     console.error("Error updating images:", error);
@@ -357,4 +359,49 @@ function renderFavoriteImages(favoriteIds) {
   // Attach click event listeners after rendering images
   attachImageClickListeners();
   loadMoreButton.style.display = "none";
+}
+
+
+// Attach hover event listeners to images
+function attachImageHoverListeners(imagesData) {
+  const images = document.querySelectorAll(".image");
+  images.forEach((image) => {
+    image.addEventListener("mouseenter", () => {
+      const imageIndex = parseInt(image.dataset.index);
+      const selectedImage = imagesData[imageIndex];
+      updateImageHoverUI(image, selectedImage);
+    });
+    image.addEventListener("mouseleave", () => {
+      clearImageHoverUI(image);
+    });
+  });
+}
+
+// Update UI with profile pic, name, and number of likes when hovering over an image
+function updateImageHoverUI(imageElement, imageData) {
+  const profilePic = document.createElement("img");
+  profilePic.src = imageData.user.profile_image.medium;
+  profilePic.alt = "Profile Picture";
+  profilePic.id = "profile-pic";
+
+  const artistName = document.createElement("span");
+  artistName.textContent = imageData.user.name;
+  artistName.id = "artist-name";
+
+  const profileInfo = document.createElement("div");
+  profileInfo.id = "profile-info";
+  profileInfo.appendChild(profilePic);
+  profileInfo.appendChild(artistName);
+
+  imageElement.appendChild(profileInfo);
+
+  imageElement.dataset.likes = imageData.likes;
+}
+
+// Clear profile pic, name, and number of likes when mouse leaves the image
+function clearImageHoverUI(imageElement) {
+  const profileInfo = imageElement.querySelector("#profile-info");
+  if (profileInfo) {
+    profileInfo.remove();
+  }
 }
