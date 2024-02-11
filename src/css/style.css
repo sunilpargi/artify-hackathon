@@ -237,5 +237,21 @@ body {
   font-weight: bold;
   margin: 0;
 }
+#social-links {
+  text-align: center;
+}
 
+#instagram-btn, #portfolio-btn, #twitter-btn, .favorite-btn-modal {
+  padding: 10px 20px;
+  margin: 0 10px;
+  background-color: #405de6;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
+#instagram-btn:hover, #portfolio-btn:hover,#twitter-btn:hover  , .favorite-btn-modal:hover{
+  background-color: #182c99;
+}

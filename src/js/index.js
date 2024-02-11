@@ -24,6 +24,7 @@ async function fetchData(query, page) {
 // Event listener for search button click
 document.querySelector(".search-btn").addEventListener("click", async () => {
   const searchInput = document.querySelector(".search-input").value.trim();
+  clearImages();
   if (searchInput !== "") {
     searchQuery = searchInput; // Update search query
     console.log("Search query:", searchQuery); // Log search query
@@ -80,20 +81,25 @@ function clearImages() {
 
 // Function to update UI with images data
 function renderImages() {
-  const imagesContainer = document.querySelector(".grid");
-  imagesContainer.innerHTML = ""; // Clear previous images
+  const imagesContainer = document.querySelector('.grid');
+  imagesContainer.innerHTML = ''; // Clear previous images
 
-  imagesData.forEach((image) => {
-    const imageElement = document.createElement("div");
-    imageElement.classList.add("image");
-    imageElement.innerHTML = `
-            <img src="${image.urls.regular}" alt="${image.description}">
-            <p>${image.user.username}</p>
-        `;
-    imagesContainer.appendChild(imageElement);
+  imagesData.forEach((image, index) => { // Include index parameter
+      const imageElement = document.createElement('div');
+      imageElement.classList.add('image');
+      imageElement.dataset.index = index; // Set data-index attribute
+      imageElement.dataset.id = image.id; // Set data-id attribute for identifying artworks
+      imageElement.innerHTML = `
+      <img src="${image.urls.regular}" alt="${image.description}">
+      `;
+      imagesContainer.appendChild(imageElement);
+
+      // Log the HTML content of the image element
+     // console.log('Image HTML:', imageElement.innerHTML);
   });
 
-  console.log("Images rendered successfully."); // Log successful rendering of images
+  // Attach click event listeners after rendering images
+  attachImageClickListeners();
 }
 
 // Function to update UI with images data and attach click event listeners to images
@@ -113,8 +119,8 @@ async function updateImages() {
 
     // Update UI with fetched data
     renderImages();
+    attachImageClickListeners();
 
-    console.log("Images data:", imagesData); // Log fetched images data
   } catch (error) {
     console.error("Error updating images:", error);
   }
@@ -122,3 +128,88 @@ async function updateImages() {
 
 // Initial load - Fetch and render images
 //updateImages();
+
+// Function to attach click event listeners to images
+function attachImageClickListeners() {
+  const images = document.querySelectorAll('.image');
+  images.forEach(image => {
+      image.addEventListener('click', () => {
+          const imageIndex = parseInt(image.dataset.index);
+          let selectedImage;
+              selectedImage = imagesData[imageIndex];
+
+          openModal(selectedImage);
+      });
+  });
+}
+// Function to open the modal popup with artwork details
+function openModal(selectedImage) {
+  const modal = document.getElementById('myModal');
+  const modalContent = document.getElementById('modal-content');
+  const selectedImageJSON = JSON.stringify(selectedImage);
+console.log(selectedImage.likes);
+  // Construct the HTML content
+  const htmlContent = `
+    <span class="close" id="close-modal">&times;</span>
+    <div class="image-container">
+      <img src="${selectedImage.urls.regular}" alt="${selectedImage.description}">
+    </div>
+    <div class="details-container">
+      <div id="artist-info">
+        <a href="#" onclick="openPortfolio('${selectedImage.user.portfolio_url}')">
+          <img id="profile-pic" src="${selectedImage.user.profile_image.medium}" alt="Profile Picture">
+        </a>
+        <span>${selectedImage.user.name}</span>
+      </div>
+      <p>Description: ${selectedImage.description}</p>
+      <p>Likes: ${selectedImage.likes}</p>
+      <p>Created At: ${new Date(selectedImage.created_at).toLocaleDateString('en-US', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+      })}</p>
+      <div id="social-links">
+        <button id="instagram-btn" onclick="openInstagram('${selectedImage.user.instagram_username}')">Instagram</button>
+        <button id="portfolio-btn" onclick="openPortfolio('${selectedImage.user.portfolio_url}')">Portfolio</button>
+        <button id="twitter-btn" onclick="openTwitter('${selectedImage.user.twitter_username}')">Twitter</button>
+      </div>
+    </div>
+  `;
+
+  modalContent.innerHTML = htmlContent;
+
+  // Show the modal
+  modal.style.display = 'block';
+
+  // Attach event listener to the close button
+  const closeModalButton = document.getElementById('close-modal');
+  closeModalButton.addEventListener('click', () => {
+    closeModal();
+  });
+}
+
+
+// Function to open Twitter profile
+function openTwitter(username) {
+  window.open(`https://twitter.com/${username}`, '_blank');
+}
+
+
+// Function to open Instagram profile
+function openInstagram(username) {
+  window.open(`https://www.instagram.com/${username}`, '_blank');
+}
+
+// Function to open the portfolio link
+function openPortfolio(portfolioUrl) {
+  window.open(portfolioUrl, '_blank');
+}
+
+// Function to close the modal popup
+function closeModal() {
+  const modal = document.getElementById('myModal');
+  modal.style.display = 'none';
+}
+
+
+
