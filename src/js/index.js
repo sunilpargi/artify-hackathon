@@ -1,5 +1,5 @@
 let searchQuery = "";
-let imagesData = []; 
+let imagesData = [];
 let currentPage = 1;
 
 // Function to fetch data from the Unsplash API
@@ -24,9 +24,12 @@ document.querySelector(".search-btn").addEventListener("click", async () => {
   const searchInput = document.querySelector(".search-input").value.trim();
   clearImages();
   if (searchInput !== "") {
-    searchQuery = searchInput;
-    currentPage = 1;
-    await updateImages();
+    searchQuery = searchInput; // Update search query
+    console.log("Search query:", searchQuery); // Log search query
+    currentPage = 1; // Reset current page to 1 when performing a new search
+    await updateImages().then(() => {
+      checkIfImagesRendered();
+    }); // Fetch and update images
   }
 });
 
@@ -37,10 +40,12 @@ document
     if (event.key === "Enter") {
       const searchInput = document.querySelector(".search-input").value.trim();
       if (searchInput !== "") {
-        searchQuery = searchInput;
-        console.log("Search query:", searchQuery);
-        currentPage = 1;
-        await updateImages();
+        searchQuery = searchInput; // Update search query
+        console.log("Search query:", searchQuery); // Log search query
+        currentPage = 1; // Reset current page to 1 when performing a new search
+        await updateImages().then(() => {
+          checkIfImagesRendered();
+        }); // Fetch and update images
       }
     }
   });
@@ -49,21 +54,38 @@ document
 document.getElementById("load-more-btn").addEventListener("click", async () => {
   try {
     currentPage++;
-    await updateImages();
+    await updateImages().then(() => {
+      checkIfImagesRendered();
+    });
   } catch (error) {
     console.error("Error loading more images:", error);
   }
 });
+// Function to check if images are rendered and show the "Show More" button
+function checkIfImagesRendered() {
+  const imagesContainer = document.querySelector(".grid");
+  const loadMoreButton = document.getElementById("load-more-btn");
+
+  if (imagesContainer.children.length > 0) {
+    loadMoreButton.style.display = "block"; // Show the button
+  } else {
+    loadMoreButton.style.display = "none"; // Hide the button
+  }
+}
 // Update search query and fetch images based on category button click
 document.querySelectorAll(".category-btn").forEach((button) => {
   button.addEventListener("click", async () => {
     const category = button.dataset.query;
-    searchQuery = category;
-    clearImages(); 
+    searchQuery = category; // Update search query with category
+    console.log("Search query:", searchQuery); // Log search query
+    clearImages(); // Clear existing images
 
+    // Set the value of the input field to the category name
     document.querySelector(".search-input").value = category;
 
-    await updateImages();
+    await updateImages().then(() => {
+      checkIfImagesRendered();
+    }); // Fetch and update images
   });
 });
 
@@ -91,9 +113,18 @@ function renderImages() {
   });
 
   // Attach click event listeners after rendering images
-  attachImageClickListeners();
+  attachImageClickListeners(imagesData);
 }
-
+// Function to update UI with subtitle text
+function updateSubtitle(query) {
+  const subtitle = document.querySelector(".subtitle");
+  if (query === "My Favorites") {
+    subtitle.textContent = query;
+  } else {
+    subtitle.textContent =
+      query === "Random Images" ? "Random Images" : `Results for ${query}`;
+  }
+}
 // Function to update UI with images data and attach click event listeners to images
 async function updateImages() {
   try {
@@ -106,24 +137,30 @@ async function updateImages() {
     );
     const newImagesData = await fetchData(searchQuery, currentPage);
     imagesData = [...imagesData, ...newImagesData];
+    updateSubtitle(searchQuery);
 
     // Update UI with fetched data
     renderImages();
-    attachImageClickListeners();
+    attachImageClickListeners(imagesData);
   } catch (error) {
     console.error("Error updating images:", error);
   }
 }
 
 // Function to attach click event listeners to images
-function attachImageClickListeners() {
+function attachImageClickListeners(imagesData) {
   const images = document.querySelectorAll(".image");
   images.forEach((image) => {
     image.addEventListener("click", () => {
       const imageIndex = parseInt(image.dataset.index);
       let selectedImage;
-      selectedImage = imagesData[imageIndex];
-
+      if (imagesData) {
+        selectedImage = imagesData[imageIndex];
+      } else {
+        // Get favorite images from local storage
+        const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+        selectedImage = favorites[imageIndex];
+      }
       openModal(selectedImage);
     });
   });
@@ -173,9 +210,16 @@ function openModal(selectedImage) {
         <button id="twitter-btn" onclick="openTwitter('${
           selectedImage.user.twitter_username
         }')">Twitter</button>
-        <button class="favorite-btn-modal">Add Favorite</button>
       `;
-      
+
+  // Check if the image is from favorites and exclude "Add Favorite" button if it is
+  const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+  if (!favorites.some((image) => image.id === selectedImage.id)) {
+    htmlContent += `<button class="favorite-btn-modal">Add Favorite</button>`;
+  }
+
+  htmlContent += `</div></div>`;
+
   // Set the HTML content
   modalContent.innerHTML = htmlContent;
 
@@ -202,10 +246,16 @@ function openModal(selectedImage) {
       toggleFavorite(selectedImage);
       // Change button text to "Added" after clicking
       favoriteButton.textContent = "Added";
-      favoriteButton.remove();
+      // favoriteButton.remove();
     });
   }
 }
+// Event listener for "My Fav" button click
+document.querySelector(".my-fav-btn").addEventListener("click", () => {
+  clearImages(); // Clear existing images
+  const favorites = JSON.parse(localStorage.getItem("favorites")) || []; // Get favorite images from local storage
+  renderFavoriteImages(favorites); // Render favorite images
+});
 
 function openTwitter(username) {
   window.open(`https://twitter.com/${username}`, "_blank");
@@ -246,10 +296,36 @@ function updateUI() {
   // Loop through all artworks and update their UI based on favorite status
   document.querySelectorAll(".favorite-btn-modal").forEach((btn) => {
     const artworkId = btn.closest(".modal-content").dataset.id;
-    if (favorites.includes(artworkId)) {
-      btn.textContent = "Remove Favorite";
-    } else {
-      btn.textContent = "Add Favorite";
-    }
+   
   });
+}
+// Event listener for "My Fav" button click
+document.querySelector(".my-fav-btn").addEventListener("click", () => {
+  clearImages(); 
+  const favorites = JSON.parse(localStorage.getItem("favorites")) || []; // Get favorite images from local storage
+  console.log("clicked", favorites);
+  updateSubtitle("My Favorites"); 
+
+  renderFavoriteImages(favorites); 
+});
+
+// Function to render favorite images
+function renderFavoriteImages(favoriteIds) {
+  const imagesContainer = document.querySelector(".grid");
+  const loadMoreButton = document.getElementById("load-more-btn");
+
+  favoriteIds.forEach((image, index) => {
+    const imageElement = document.createElement("div");
+
+    imageElement.classList.add("image");
+    imageElement.dataset.index = index; 
+    imageElement.dataset.id = image.id; 
+    imageElement.innerHTML = `
+      <img src="${image.urls.regular}" alt="${image.description}">
+    `;
+    imagesContainer.appendChild(imageElement);
+  });
+  // Attach click event listeners after rendering images
+  attachImageClickListeners();
+  loadMoreButton.style.display = "none";
 }
