@@ -18,7 +18,34 @@ async function fetchData(query, page) {
     return [];
   }
 }
+// Function to fetch random images from the Unsplash API
+async function fetchRandomImages() {
+  try {
+    const clientId = "g8_qoQKYdMbsTV5sFCGQDtDZrJZGDAvfUDjElBoNvdE";
+    const perPage = 15; 
+    const response = await fetch(
+      `https://api.unsplash.com/photos/random?count=${perPage}&client_id=${clientId}`
+    );
+    const data = await response.json();
+    console.log("Random images fetched successfully:", data); 
+    return data; 
+  } catch (error) {
+    console.error("Error fetching random images:", error);
+    return []; 
+  }
+}
 
+// Update UI with random images on page load
+window.addEventListener("load", async () => {
+  try {
+    const randomImagesData = await fetchRandomImages();
+    imagesData = randomImagesData;
+    updateSubtitle("Random Images"); 
+    renderImages(); 
+  } catch (error) {
+    console.error("Error loading random images:", error);
+  }
+});
 // Event listener for search button click
 document.querySelector(".search-btn").addEventListener("click", async () => {
   const searchInput = document.querySelector(".search-input").value.trim();
@@ -253,6 +280,8 @@ function openModal(selectedImage) {
 // Event listener for "My Fav" button click
 document.querySelector(".my-fav-btn").addEventListener("click", () => {
   clearImages(); // Clear existing images
+  document.querySelector('.search-input').value = '';
+
   const favorites = JSON.parse(localStorage.getItem("favorites")) || []; // Get favorite images from local storage
   renderFavoriteImages(favorites); // Render favorite images
 });
