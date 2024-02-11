@@ -100,9 +100,9 @@ body {
 
 .category-text {
   cursor: pointer;
-  color: #007bff; /* Button text color */
-  text-decoration: underline; /* Underline the text to make it look clickable */
-  font-size: 14px; /* Adjust the font size as needed */
+  color: #007bff; 
+  text-decoration: underline; 
+  font-size: 14px; 
 }
 
 .category-text:hover {
@@ -131,7 +131,7 @@ body {
 .image {
   position: relative;
   overflow: hidden;
-  height: 300px; /* Adjust the height as needed */
+  height: 300px; 
 }
 
 .image:hover img {
@@ -172,13 +172,14 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 4px; /* Add border radius to images */
+  border-radius: 4px; 
 }
 
 .image p {
   margin-top: 10px;
   text-align: center;
 }
+
 .load-more {
   text-align: center;
   margin-top: 20px;
@@ -192,12 +193,29 @@ body {
   border-radius: 4px;
   cursor: pointer;
   display: none; /* Initially hide the button */
-  margin: 0 auto; /* Center the button */
+  margin: 0 auto; 
+}
+
+/* Update button styles */
+.btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #45a049;
 }
 
 #load-more-btn:hover {
   background-color: #0056b3;
 }
+
 /* Font styles */
 body {
   font-family: Arial, sans-serif;
@@ -238,18 +256,18 @@ span {
   position: absolute;
   text-align: center;
   width: 70%;
-  max-height: 80%; /* Limit maximum height of the modal */
+  max-height: 80%; 
   overflow-y: auto; /* Enable vertical scrolling if content overflows */
-  top: 7%; /* Position the modal at the top of the viewport */
+  top: 7%; 
   left: 50%;
   transform: translateX(-50%);
 }
 
 #artwork-image {
-  width: 200px; /* Set the width to 200 pixels */
-  height: 200px; /* Set the height to 200 pixels */
+  width: 200px; 
+  height: 200px; 
   object-fit: cover; /* Maintain aspect ratio while covering the container */
-  border-radius: 10px; /* Optionally, add border radius */
+  border-radius: 10px; 
 }
 
 .close {
