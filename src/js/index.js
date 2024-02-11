@@ -202,7 +202,7 @@ function openModal(selectedImage) {
   let htmlContent = `
     <span class="close" id="close-modal">&times;</span>
     <div class="image-container">
-      <img src="${selectedImage.urls.regular}" alt="${
+      <img src="${selectedImage.urls.thumb}" alt="${
     selectedImage.description
   }">
     </div>
