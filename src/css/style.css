@@ -12,26 +12,34 @@ body {
 }
 
 /* Jumbutron styles */
-.jumbutron {
+.jumbotron {
   background-color: #f0f0f0;
   padding: 20px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.title {
-  font-size: 2rem;
   text-align: center;
-  margin-bottom: 20px;
 }
 
-/* Search field styles */
+.website-info {
+  display: inline-block;
+  float: left;
+  margin-left: 20px;
+}
+
+.website-info img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.website-name {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+  line-height: 50px;
+}
+
 .search-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
+  display: inline-block;
+  margin-left: 20px;
 }
 
 .search-input {
@@ -55,6 +63,52 @@ body {
   background-color: #0056b3;
 }
 
+.my-fav-btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+  margin-right: 20px;
+}
+
+.my-fav-btn:hover {
+  background-color: #0056b3;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.category-btn {
+  display: inline-block;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.category-btn {
+  display: inline-block;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.category-text {
+  cursor: pointer;
+  color: #007bff; /* Button text color */
+  text-decoration: underline; /* Underline the text to make it look clickable */
+  font-size: 14px; /* Adjust the font size as needed */
+}
+
+.category-text:hover {
+  text-decoration: none; /* Remove underline on hover */
+}
+
 /* Images styles */
 .images {
   padding: 20px 0;
@@ -64,6 +118,7 @@ body {
   font-size: 1.5rem;
   text-align: center;
   margin-bottom: 20px;
+  text-transform: capitalize;
 }
 
 .grid {
@@ -76,6 +131,7 @@ body {
 .image {
   position: relative;
   overflow: hidden;
+  height: 300px; /* Adjust the height as needed */
 }
 
 .image:hover img {
@@ -111,60 +167,56 @@ body {
 .image:hover::after {
   opacity: 1;
 }
+
 .image img {
   width: 100%;
-  border-radius: 4px;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px; /* Add border radius to images */
 }
 
 .image p {
   margin-top: 10px;
   text-align: center;
 }
-
-.buttons {
-  display: flex;
-}
-
-.category-btn {
-  margin-left: 10px;
-}
-
-/* Update button styles */
-.btn {
-  background-color: #4caf50;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 16px;
-  transition: background-color 0.3s;
-}
-
-.btn:hover {
-  background-color: #45a049;
+.load-more {
+  text-align: center;
+  margin-top: 20px;
 }
 
 #load-more-btn {
-  /* display: none; */
   padding: 10px 20px;
   background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  display: none; /* Initially hide the button */
+  margin: 0 auto; /* Center the button */
 }
 
 #load-more-btn:hover {
   background-color: #0056b3;
 }
-.buttons {
-  display: flex;
+/* Font styles */
+body {
+  font-family: Arial, sans-serif;
 }
 
-.category-btn {
-  margin-left: 10px;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
 }
+
+p,
+span {
+  font-size: 16px;
+}
+
 /* Modal styles */
 .modal {
   display: none;
@@ -180,38 +232,42 @@ body {
 
 .modal-content {
   background-color: #f8f9fa;
-  margin: 10% auto;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
-  position: relative;
+  position: absolute;
   text-align: center;
   width: 70%;
+  max-height: 80%; /* Limit maximum height of the modal */
+  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+  top: 7%; /* Position the modal at the top of the viewport */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#artwork-image {
+  width: 200px; /* Set the width to 200 pixels */
+  height: 200px; /* Set the height to 200 pixels */
+  object-fit: cover; /* Maintain aspect ratio while covering the container */
+  border-radius: 10px; /* Optionally, add border radius */
 }
 
 .close {
-  color: #aaa;
-  font-size: 30px;
+  color: #ffffff;
+  font-size: 50px;
   position: absolute;
-  top: 10px;
-  right: 20px;
+  top: 4px;
+  right: 4px;
 }
 
 .close:hover,
 .close:focus {
-  color: #000;
+  color: #ff0000;
 }
 
 .image-container {
   text-align: center;
   margin-bottom: 20px;
-}
-
-#artwork-image {
-  max-width: 300px;
-  max-height: 300px;
-  object-fit: cover;
-  border-radius: 10px;
 }
 
 .details-container {
@@ -237,11 +293,15 @@ body {
   font-weight: bold;
   margin: 0;
 }
+
 #social-links {
   text-align: center;
 }
 
-#instagram-btn, #portfolio-btn, #twitter-btn, .favorite-btn-modal {
+#instagram-btn,
+#portfolio-btn,
+#twitter-btn,
+.favorite-btn-modal {
   padding: 10px 20px;
   margin: 0 10px;
   background-color: #405de6;
@@ -252,6 +312,30 @@ body {
   transition: background-color 0.3s ease;
 }
 
-#instagram-btn:hover, #portfolio-btn:hover,#twitter-btn:hover  , .favorite-btn-modal:hover{
+#instagram-btn:hover,
+#portfolio-btn:hover,
+#twitter-btn:hover,
+.favorite-btn-modal:hover {
   background-color: #182c99;
+}
+
+/* CSS for favorite button */
+.favorite-btn {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.favorite-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Website info styles */
+.website-info {
+  display: flex;
+  align-items: center;
 }

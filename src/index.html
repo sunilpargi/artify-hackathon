@@ -8,54 +8,70 @@
   </head>
   <body>
     <div id="root">
-      <div class="jumbutron">
+      <!-- <header>
+            <div class="container">
+                <div class="website-info">
+                    <img src="public/3.png" alt="Website Favicon">
+                    <h1 class="website-name">Artify</h1>
+                </div>
+                <button class="my-fav-btn">My Fav</button>
+            </div>
+        </header> -->
+      <div class="jumbotron">
         <div class="container">
-          <h1 class="title">Find Images</h1>
-          <div class="search-container">
-            <input type="text" class="search-input" placeholder="Search..." />
-            <button class="search-btn">Search</button>
+          <div class="content">
+            <div class="website-info">
+              <img
+                src="public/3.png"
+                alt="Website Favicon"
+                onclick="refreshPage()"
+              />
+              <h1 class="website-name" onclick="refreshPage()">Artify</h1>
+            </div>
+            <div class="search-container">
+              <input
+                type="text"
+                class="search-input"
+                placeholder="Search Any Images..."
+              />
+              <button class="search-btn">Search</button>
+            </div>
+            <button class="my-fav-btn">My Saved Artwork</button>
           </div>
           <div class="buttons">
             <button class="category-btn" data-query="Modern Art">
-              Modern Art
+              <span class="category-text">Modern Art</span>
             </button>
-            <button class="category-btn" data-query="Classics">Classics</button>
+            <button class="category-btn" data-query="Classics">
+              <span class="category-text">Classics</span>
+            </button>
             <button class="category-btn" data-query="Sculptures">
-              Sculptures
+              <span class="category-text">Sculptures</span>
             </button>
           </div>
         </div>
       </div>
       <div class="images">
         <div class="container">
-          <h2 class="subtitle">Results for Cats</h2>
+          <h2 class="subtitle"></h2>
           <div class="grid">
             <!-- Images will be rendered here -->
           </div>
-          <div class="load-more">
+          <div class="load-more" id="load-more-container">
             <button id="load-more-btn" class="btn">Show More</button>
           </div>
         </div>
       </div>
-    </div>
-    <div id="myModal" class="modal">
-      <div id="modal-content" class="modal-content">
-        <span class="close" id="close-modal">&times;</span>
-        <div class="image-container">
-          <img id="artwork-image" src="" alt="Artwork Image">
-        </div>
-        <div class="details-container">
-          <div id="artist-info">
-            <span id="artist-name">Artist Name</span>
-          </div>
-          <p id="artwork-description">Description</p>
-          <p id="artwork-likes">Likes</p>
-          <p id="created-at">Created At</p>
-
-        </div>
+      <!-- Modal HTML -->
+      <div id="myModal" class="modal">
+        <div id="modal-content" class="modal-content"></div>
       </div>
     </div>
-
-    <script type="module" src="js/index.js"></script>
+    <script>
+      function refreshPage() {
+        window.location.href = window.location.href;
+      }
+    </script>
+    <script src="js/index.js" defer></script>
   </body>
 </html>
