@@ -47,6 +47,7 @@ body {
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-right: 10px;
+  margin-left: -210px;
   width: 200px;
 }
 
@@ -56,6 +57,7 @@ body {
   color: #fff;
   border: none;
   border-radius: 4px;
+  margin-left: -10px;
   cursor: pointer;
 }
 
@@ -71,8 +73,11 @@ body {
   border-radius: 4px;
   cursor: pointer;
   float: right;
-  margin-right: 20px;
+  margin-right: 30px;
+  margin-top: -85px; /* Adjust this value to move the button up */
 }
+
+
 
 .my-fav-btn:hover {
   background-color: #0056b3;
@@ -109,6 +114,50 @@ body {
   text-decoration: none; /* Remove underline on hover */
 }
 
+/* Center align the "My Saved Artwork" button */
+/* @media screen and (min-width: 769px) {
+  .my-fav-btn {
+      margin-left: auto; 
+      margin-right: 20px; 
+  }
+} */
+
+
+@media screen and (max-width: 768px) {
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .search-container {
+    margin-bottom: 1px;
+    text-align: right;  }
+
+  .buttons {
+    margin-bottom: 20px;
+  }
+
+  .search-container,
+  .buttons {
+    width: 100%;
+  }
+
+  .category-btn {
+    margin-right: 0;
+    margin-bottom: 5px;
+  }
+
+  .my-fav-btn {
+    margin-top: -20px; 
+    margin-right: 100px;
+  }
+}
+
+
+
+
+
 /* Images styles */
 .images {
   padding: 20px 0;
@@ -127,11 +176,11 @@ body {
   gap: 20px;
 }
 
-/* Add image hover effect */
+/* Add CSS for image hover effect */
 .image {
   position: relative;
   overflow: hidden;
-  height: 300px;
+  height: 300px; /* Adjust the height as needed */
 }
 
 .image:hover img {
@@ -178,23 +227,29 @@ body {
   bottom: 0;
   right: 0;
   padding: 10px;
-  color: #fff; 
-  font-size: 14px; 
+  color: #fff; /* Set the color for the likes text */
+  font-size: 14px; /* Set the font size for the likes text */
 }
 
 /* Inline SVG for the heart shape */
 .image:hover::after {
   content: '';
   position: absolute;
-  bottom: 5px; 
-  right: 5px; 
-  width: 15px;
-  height: 15px; 
+  bottom: 5px; /* Adjust the position of the heart shape */
+  right: 5px; /* Adjust the position of the heart shape */
+  width: 15px; /* Set the width of the heart shape */
+  height: 15px; /* Set the height of the heart shape */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; 
-  background-size: cover; 
+  background-repeat: no-repeat; /* Ensure the heart shape is not repeated */
+  background-size: cover; /* Ensure the heart shape fits within the container */
 }
 
+
+
+
+
+
+/* Add CSS for profile pic and name */
 .image:hover::before,
 .image:hover #profile-info,
 .image:hover::after {
@@ -205,7 +260,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: 4px; /* Add border radius to images */
 }
 
 .image p {
@@ -226,7 +281,30 @@ body {
   border-radius: 4px;
   cursor: pointer;
   display: none; /* Initially hide the button */
-  margin: 0 auto;
+  margin: 0 auto; /* Center the button */
+}
+
+#load-more-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Add CSS animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(100px);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
 /* Update button styles */
@@ -245,8 +323,13 @@ body {
   background-color: #45a049;
 }
 
-#load-more-btn:hover {
-  background-color: #0056b3;
+/* Add animation classes */
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.slide-in {
+  animation: slideIn 0.5s ease-out;
 }
 
 /* Font styles */
@@ -272,14 +355,15 @@ span {
 .modal {
   display: none;
   position: fixed;
-  z-index: 1000;
+  z-index: 1;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.7);
 }
+
 /* Add CSS for the modal */
 .modal {
   display: none;
@@ -293,14 +377,29 @@ span {
   background-color: rgba(0, 0, 0, 0.7);
 }
 
+/* Add CSS for the modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Modal content */
 .modal-content {
   background-color: #fefefe;
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 70%; 
+  width: 70%; /* Set a default width */
 }
 
+/* Close button */
 .close {
   color: #aaa;
   float: right;
@@ -315,23 +414,26 @@ span {
   cursor: pointer;
 }
 
+/* Responsive layout - adjust modal width for small screens */
 @media screen and (max-width: 600px) {
   .modal-content {
-    width: 90%; 
+    width: 90%; /* Adjust the width for smaller screens */
   }
 }
 
+
 #artwork-image {
-  width: 200px; 
-  height: 200px; 
-  object-fit: cover; 
-  border-radius: 10px; 
+  width: 200px; /* Set the width to 200 pixels */
+  height: 200px; /* Set the height to 200 pixels */
+  object-fit: cover; /* Maintain aspect ratio while covering the container */
+  border-radius: 10px; /* Optionally, add border radius */
 }
 
 .image-container {
   text-align: center;
   margin-bottom: 20px;
   cursor: zoom-in;
+
 }
 
 .details-container {
@@ -366,7 +468,7 @@ span {
 #twitter-btn,
 .favorite-btn-modal {
   padding: 10px 20px;
-  margin: 5px 5px;
+  margin: 5px 5px; /* Adjusted margin */
   background-color: #405de6;
   color: #fff;
   border: none;
@@ -381,6 +483,8 @@ span {
 .favorite-btn-modal:hover {
   background-color: #182c99;
 }
+
+
 /* CSS for favorite button */
 .favorite-btn {
   display: inline-block;
@@ -401,12 +505,73 @@ span {
   display: flex;
   align-items: center;
 }
+/* Adjust jumbotron styling for smaller screens */
+/* @media screen and (max-width: 768px) {
+  .jumbotron {
+    padding: 10px; 
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+  }
+
+  .search-container {
+    margin-bottom: 1px; 
+  }
+
+  .buttons {
+    margin-bottom: 20px; 
+
+  .category-btn {
+    display: block; 
+  }
+
+  .website-info {
+    margin-right: 20px; 
+    margin-bottom: 10px; 
+  }
+
+  .my-fav-btn {
+    margin: 0 auto; 
+    margin-right: 90px;
+    display: block; 
+  }
+} */
+
+
+/* Update CSS for larger screens */
+/* @media screen and (min-width: 769px) {
+  .jumbotron .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center; 
+  }
+
+  .search-container {
+    margin-bottom: 20px;
+  }
+
+  .category-btn {
+    margin-right: 10px;
+  }
+} */
+
+
 .footer {
-  background-color: #f0f0f0;
-  color: #000;
-  padding: 10px 0;
+  background-color: #f0f0f0; /* Set the background color for the footer */
+  color: #000; /* Set the font color to black */
+  padding: 10px 0; /* Reduce padding to make the footer smaller in height */
   text-align: center;
-  font-size: 12px;
+  font-size: 12px; /* Set the font size to 12 pixels */
 }
 
 .footer-content {
@@ -415,7 +580,7 @@ span {
 }
 
 .footer-text {
-  font-size: 10px;
+  font-size: 10px; /* Set the font size for the smaller text */
 }
 
 .social-links {
@@ -426,6 +591,7 @@ span {
 .social-links li {
   display: inline;
   text-decoration: underline;
+
 }
 
 .social-links li:not(:last-child) {
@@ -433,7 +599,8 @@ span {
 }
 
 .social-links a {
-  color: #000;
+  color: #000; /* Set the font color to black */
   text-decoration: none;
-  font-size: 14px;
+  font-size: 14px; /* Set the font size to 12 pixels */
 }
+
