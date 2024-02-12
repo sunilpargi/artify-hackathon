@@ -15,5 +15,8 @@
   },
   "msw": {
     "workerDirectory": "src/public"
+  },
+  "dependencies": {
+    "global": "^4.4.0"
   }
 }
