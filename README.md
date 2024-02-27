@@ -1,9 +1,3 @@
-# Image Gallery Web App
-
-Hello, unfortunately, I couldn't submit the video link during the submission time due to not having enough time to record it. I apologize for the delay. Here's the recorded demo video of my project:
-
-[Demo Video](https://drive.google.com/file/d/1gmTx2Cvk5rUMbAuJvRvHw_FabLmmqjoZ/view?usp=sharing)
-
 
 This is a web application for browsing and managing images from the Unsplash API. Users can search for images, view random images, save favorites, and more.
 
